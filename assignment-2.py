@@ -13,6 +13,8 @@ def my_max(*args):
         for seq in args:
             if isinstance(seq, (list, tuple)):
                 return (sorted(seq))[-1]
+    elif len(args) == 0:
+        raise ValueError("Can't find max, no data given")
     else:
         for nums in args:
             if isinstance(nums, int):
