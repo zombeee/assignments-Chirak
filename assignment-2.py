@@ -10,7 +10,7 @@ def my_max(*args):
     """
     if len(args) == 1:
             if isinstance(args, (list, tuple)):
-                return (sorted(seq))[-1]
+                return (sorted(args))[-1]
     else:
         for nums in args:
             if isinstance(nums, int):
