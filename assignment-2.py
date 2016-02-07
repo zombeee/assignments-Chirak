@@ -30,6 +30,6 @@ my_max(1, 3, -8, 9)
 my_max(1)
 my_max()
 # this don't work
-my_max(1, 3, -8, 9, True, 9.8)
+my_max(1, 3, -8, 9, 9.8)
 # this works
-my_max(0.95, 1, 3, -8, 9, True, 9.8)
+my_max(0.95, 1, 3, -8, 9, 9.8)
