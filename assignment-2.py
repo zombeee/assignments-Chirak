@@ -11,17 +11,22 @@ def my_max(*args):
     """
 
     if len(args) == 1:
-        for seq in args:
-            if isinstance(seq, (list, tuple)):
-                return sorted(seq)[-1]
-    elif len(args) == 0:
+        numbers = args[0]
+        if isinstance(numbers, (list, tuple)):
+            return sorted(numbers)[-1]
+    elif not args:
         raise ValueError("Can't find max, no data given")
     else:
         for num in args:
-            if isinstance(num, int):
-                return sorted(args)[-1]
-            else:
-                raise ValueError("Can't find max, wrong data format")
+            test_val = 0
+            if not isinstance(num, int) > test_val:
+                test_val = not isinstance(num, int)
+                if test_val == 1:
+                    raise ValueError("Can't find max, wrong data format")
+                else:
+                    return sorted(args)[-1]
+
+
 
 
 my_max([1, 3, -8, 9])
