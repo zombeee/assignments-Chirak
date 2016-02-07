@@ -14,14 +14,13 @@ def my_max(*args):
     if len(args) == 1:
         numbers = args[0]
         if isinstance(numbers, (list, tuple)):
-            for things in numbers:
-                if not isinstance(things, int):
+            for thing in numbers:
+                if not isinstance(thing, int):
                     raise ValueError("Can't find max, wrong data format")
             return sorted(numbers)[-1]
         if isinstance(numbers, int):
             return numbers
-        else:
-            raise ValueError("Can't find max, wrong data format")
+        raise ValueError("Can't find max, wrong data format")
     else:
         for num in args:
             if not isinstance(num, int):
@@ -50,14 +49,13 @@ def my_min(*args):
     if len(args) == 1:
         numbers = args[0]
         if isinstance(numbers, (list, tuple)):
-            for things in numbers:
-                if not isinstance(things, int):
+            for thing in numbers:
+                if not isinstance(thing, int):
                     raise ValueError("Can't find max, wrong data format")
             return sorted(numbers)[0]
         if isinstance(numbers, int):
             return numbers
-        else:
-            raise ValueError("Can't find max, wrong data format")
+        raise ValueError("Can't find max, wrong data format")
     else:
         for num in args:
             if not isinstance(num, int):
