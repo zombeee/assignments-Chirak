@@ -9,13 +9,12 @@ def my_max(*args):
     This function find max in given sequence of simple numbers, or in
     given tuple or in list
     """
-
-    if len(args) == 1:
+    if not args:
+        raise ValueError("Can't find max, no data given")
+    elif len(args) == 1:
         numbers = args[0]
         if isinstance(numbers, (list, tuple)):
             return sorted(numbers)[-1]
-    elif not args:
-        raise ValueError("Can't find max, no data given")
     else:
         for num in args:
             test_val = 0
@@ -31,10 +30,11 @@ def my_max(*args):
 
 my_max([1, 3, -8, 9])
 my_max((1, 3, -8, 9))
+# now this don't work
 my_max(1, 3, -8, 9)
 my_max(1)
 my_max()
-# this don't work
+# this works
 my_max(1, 3, -8, 9, 9.8)
 # this works
 my_max(0.95, 1, 3, -8, 9, 9.8)
