@@ -25,10 +25,8 @@ def my_max(*args):
     else:
         for num in args:
             if not isinstance(num, int):
-                    raise ValueError("Can't find max, wrong data format")
+                raise ValueError("Can't find max, wrong data format")
         return sorted(args)[-1]
-
-
 
 
 my_max([1, 3, -8, 9])
@@ -63,7 +61,7 @@ def my_min(*args):
     else:
         for num in args:
             if not isinstance(num, int):
-                    raise ValueError("Can't find max, wrong data format")
+                raise ValueError("Can't find max, wrong data format")
         return sorted(args)[0]
 
 my_min([1, 3, -8, 9])
