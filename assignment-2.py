@@ -6,19 +6,20 @@ from __future__ import division, print_function
 
 def my_max(*args):
     """
-    This function try to find max, but still can't do it
+    This function find max in given sequence of simple numbers, or in
+    given tuple or in list
     """
 
     if len(args) == 1:
         for seq in args:
             if isinstance(seq, (list, tuple)):
-                return (sorted(seq))[-1]
+                return sorted(seq)[-1]
     elif len(args) == 0:
         raise ValueError("Can't find max, no data given")
     else:
-        for nums in args:
-            if isinstance(nums, int):
-                return (sorted(args))[-1]
+        for num in args:
+            if isinstance(num, int):
+                return sorted(args)[-1]
             else:
                 raise ValueError("Can't find max, wrong data format")
 
@@ -30,5 +31,5 @@ my_max(1)
 my_max()
 # this don't work
 my_max(1, 3, -8, 9, True, 9.8)
-# this work's
+# this works
 my_max(0.95, 1, 3, -8, 9, True, 9.8)
