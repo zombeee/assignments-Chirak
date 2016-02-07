@@ -9,22 +9,24 @@ def my_max(*args):
     This function find max in given sequence of simple numbers, or in
     given tuple or in list
     """
+    def sorter(sequence):
+        """
+        This function find max in gives sequence of simple numbers
+        """
+        for numbers in sequence:
+            if not isinstance(numbers, int):
+                raise ValueError("Can't find max, wrong data format")
+        return sorted(sequence)[-1]
     if not args:
         raise ValueError("Can't find max, no data given")
     if len(args) == 1:
-        numbers = args[0]
-        if isinstance(numbers, (list, tuple)):
-            for thing in numbers:
-                if not isinstance(thing, int):
-                    raise ValueError("Can't find max, wrong data format")
-            return sorted(numbers)[-1]
-        if isinstance(numbers, int):
-            return numbers
+        thing = args[0]
+        if isinstance(thing, (list, tuple)):
+            return sorter(thing)
+        if isinstance(thing, int):
+            return thing
         raise ValueError("Can't find max, wrong data format")
-    for num in args:
-        if not isinstance(num, int):
-            raise ValueError("Can't find max, wrong data format")
-    return sorted(args)[-1]
+    return sorter(args)
 
 
 my_max([1, 3, -8, 9])
@@ -35,7 +37,6 @@ my_max(1)
 my_max(1.1)
 my_max()
 my_max(1, 3, -8, 9, 9.8)
-my_max(0.95, 1, 3, -8, 9, 9.8)
 
 
 def my_min(*args):
@@ -43,22 +44,25 @@ def my_min(*args):
     This function find min in given sequence of simple numbers, or in
     given tuple or in list
     """
+    def sorter(sequence):
+        """
+        This function find min in gives sequence of simple numbers
+        """
+        for numbers in sequence:
+            if not isinstance(numbers, int):
+                raise ValueError("Can't find min, wrong data format")
+        return sorted(sequence)[0]
     if not args:
-        raise ValueError("Can't find max, no data given")
+        raise ValueError("Can't find min, no data given")
     if len(args) == 1:
-        numbers = args[0]
-        if isinstance(numbers, (list, tuple)):
-            for thing in numbers:
-                if not isinstance(thing, int):
-                    raise ValueError("Can't find max, wrong data format")
-            return sorted(numbers)[0]
-        if isinstance(numbers, int):
-            return numbers
-        raise ValueError("Can't find max, wrong data format")
-    for num in args:
-        if not isinstance(num, int):
-            raise ValueError("Can't find max, wrong data format")
-    return sorted(args)[0]
+        thing = args[0]
+        if isinstance(thing, (list, tuple)):
+            return sorter(thing)
+        if isinstance(thing, int):
+            return thing
+        raise ValueError("Can't find min, wrong data format")
+    return sorter(args)
+
 
 my_min([1, 3, -8, 9])
 my_min((1, 3, -8, 9))
@@ -68,4 +72,4 @@ my_min(1)
 my_min(1.1)
 my_min()
 my_min(1, 3, -8, 9, 9.8)
-my_min(0.95, 1, 3, -8, 9, 9.8)
+
