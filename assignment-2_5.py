@@ -33,15 +33,14 @@ def calculate(string):
         "-": operator.sub,
     }
     numbers = []
-    operations =[]
+    operations = []
     for things in string:
-        if things == "(" or ")" or " ":
-            continue
-        if isinstance(things, float):
-            raise ValueError("Numbers of this type not supported")
-        if isinstance(things, int):
-            numbers.append(things)
-        operations.append(things)
+        if things == ".":
+            raise ValueError("Not integer numbers not supported")
+        if things.isdigit():
+            numbers.append(int(things))
+        else:
+            operations.append(things)
     numbers_iterator = iter(numbers)
     acc = next(numbers_iterator)
     for num, oper in zip(numbers_iterator, operations):
