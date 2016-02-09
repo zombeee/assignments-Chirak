@@ -56,6 +56,6 @@ def calculate(string):
     return acc
 
 calculate(" -1- 5+6 (+6) - 7 ")
-calculate(" 1- 5+6 (+6) - 7 ")
+
 
 
