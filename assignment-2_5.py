@@ -32,9 +32,12 @@ def calculate(string):
         "+": operator.add,
         "-": operator.sub,
     }
+    list_to_ignor = ["(", ")", " "]
     numbers = []
     operations = []
     for things in string:
+        if things in list_to_ignor:
+            continue
         if things == ".":
             raise ValueError("Not integer numbers not supported")
         if things.isdigit():
@@ -50,5 +53,5 @@ def calculate(string):
         acc = oper_funct(acc, num)
     return acc
 
-calculate("1+2+8-6")
+calculate("1 +2+8 -(6)")
 
