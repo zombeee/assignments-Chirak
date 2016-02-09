@@ -39,7 +39,9 @@ def calculate(string):
         if things in list_to_ignor:
             continue
         if things == ".":
-            raise ValueError("Not integer numbers not supported")
+            raise ValueError("Supported only integer numbers")
+        if not numbers and things == "-":
+            numbers.append(0)
         if things.isdigit():
             numbers.append(int(things))
         else:
@@ -53,5 +55,6 @@ def calculate(string):
         acc = oper_funct(acc, num)
     return acc
 
-calculate("1 +2+8 -(6)")
+calculate(" -1- 5+6 (+6) - 7 ")
+
 
