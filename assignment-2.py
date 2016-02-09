@@ -1,6 +1,10 @@
 #! /usr/bin/env python
 
 
+"""
+Homework 1
+"""
+
 from __future__ import division, print_function
 
 
@@ -14,9 +18,9 @@ def my_max(*args):
         This function find max in given sequence of simple numbers
         """
         def bubble_sort(a):
-            '''
+            """
             This function sort the list
-            '''
+            """
             for i in reversed(range(len(a))):
                 for j in range(1, i + 1):
                     if a[j-1] > a[j]:
@@ -61,9 +65,9 @@ def my_min(*args):
         This function find max in given sequence of simple numbers
         """
         def bubble_sort(a):
-            '''
+            """
             This function sort the list
-            '''
+            """
             for i in reversed(range(len(a))):
                 for j in range(1, i + 1):
                     if a[j-1] > a[j]:
