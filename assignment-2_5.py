@@ -28,8 +28,15 @@ my_filter(bool, [1, 0, [], [1, 3, 5]])
 
 
 def calculate(numbers, operations):
+    """
+    This function use operations from (operations) to numbers from (numbers)
+    :param numbers: List of the numbers
+    :param operations: List of the operations
+    (supported only "+" and "-" operations)
+    :return: Result of calculations
+    """
     if len(numbers) != len(operations) + 1:
-        raise ValueError("msg")
+        raise ValueError("Errors in given data")
     operation_dict = {
         "+": operator.add,
         "-": operator.sub
@@ -45,24 +52,33 @@ def calculate(numbers, operations):
 
 
 def evaluate_string(string):
+    """
+    This function use operations in string to numbers in string
+     ignoring " ", "(" and ")"
+    :param string: String with numbers and operations
+    ("+" and "-" operations supported)
+    :return: Calculation result
+    """
     list_to_ignor = ["(", ")", " "]
     numbers = []
     operations = []
     string_for_numbers = ""
-    for things in string:
-        if things in list_to_ignor:
+    for char in string:
+        if char in list_to_ignor:
             continue
-        if things == ".":
+        if char == ".":
             raise ValueError("Supported only integer numbers")
-        if not numbers and things is "-":
+        if not numbers and char == "'-'":
             numbers.append(0)
-        if things.isdigit():
-                string_for_numbers += things
+        if char.isdigit():
+                string_for_numbers += char
         else:
             if string_for_numbers:
                 numbers.append(int(string_for_numbers))
                 string_for_numbers = ""
-            operations.append(things)
+            operations.append(char)
+    if string_for_numbers:
+        numbers.append(int(string_for_numbers))
     return calculate(numbers, operations)
 
 evaluate_string(" 1- 5+66 (+6) + 7 ")
