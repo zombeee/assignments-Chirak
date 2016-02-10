@@ -27,7 +27,7 @@ def my_filter(fn, elements, **kwargs):
 my_filter(bool, [1, 0, [], [1, 3, 5]])
 
 
-def calculate(string):
+def evaluate_string(string):
     calculator_dict = {
         "+": operator.add,
         "-": operator.sub,
@@ -55,7 +55,7 @@ def calculate(string):
         acc = oper_funct(acc, num)
     return acc
 
-calculate(" -1- 5+6 (+6) - 7 ")
+evaluate_string(" -1- 5+6 (+6) - 7 ")
 
 
 
