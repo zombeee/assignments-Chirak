@@ -63,9 +63,17 @@ def evaluate_string(string):
     numbers = []
     operations = []
     string_for_numbers = ""
-    list_for_string =[]
+    list_for_string = []
+
+    def numbers_appender(lst):
+        if lst:
+            numbers.append(int(string_for_numbers.join(lst)))
+
     for char in string:
         if char in list_to_ignor:
+            if list_for_string:
+                numbers_appender(list_for_string)
+                list_for_string = []
             continue
         if char == ".":
             raise ValueError("Supported only integer numbers")
@@ -74,13 +82,13 @@ def evaluate_string(string):
         if char.isdigit():
                 list_for_string.append(char)
         else:
-            if list_for_string:
-                numbers.append(int(string_for_numbers.join(list_for_string)))
-                list_for_string = []
+            numbers_appender(list_for_string)
+            list_for_string = []
             operations.append(char)
     if list_for_string:
         numbers.append(int(string_for_numbers.join(list_for_string)))
     return calculate(numbers, operations)
 
-evaluate_string("-1- 5+66 (+6  ) + 7 -70")
+evaluate_string("1 +2(2 - 1) + 5")
 
+    return (numbers, operations, list_for_string)
