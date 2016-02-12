@@ -59,15 +59,23 @@ def evaluate_string(string):
     ("+" and "-" operations supported)
     :return: Calculation result
     """
-    list_to_ignor = ["(", ")", " "]
     numbers = []
     operations = []
-    string_for_numbers = ""
     list_for_string = []
+    stack_for_colons = []
     for char in string:
-        if char in list_to_ignor:
+        if char == " ":
             if list_for_string:
-                numbers.append(int(string_for_numbers.join(list_for_string)))
+                numbers.append(int("".join(list_for_string)))
+                list_for_string = []
+            continue
+        if char == "(" or char == ")":
+            if not stack_for_colons or stack_for_colons[-1] == char:
+                stack_for_colons.append(char)
+            else:
+                stack_for_colons.pop()
+            if list_for_string:
+                numbers.append(int("".join(list_for_string)))
                 list_for_string = []
             continue
         if char == ".":
@@ -78,13 +86,15 @@ def evaluate_string(string):
                 list_for_string.append(char)
         else:
             if list_for_string:
-                numbers.append(int(string_for_numbers.join(list_for_string)))
+                numbers.append(int("".join(list_for_string)))
                 list_for_string = []
             operations.append(char)
+    if stack_for_colons:
+        raise ValueError("Additional(missed) colons in given data")
     if list_for_string:
-        numbers.append(int(string_for_numbers.join(list_for_string)))
+        numbers.append(int("".join(list_for_string)))
     return calculate(numbers, operations)
 
-evaluate_string("1 +2(2 - 1) + 5")
+evaluate_string("1 +2-(2 - 1) + 5")
 
-    return (numbers, operations, list_for_string)
+
