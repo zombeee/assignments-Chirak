@@ -95,6 +95,6 @@ def evaluate_string(string):
         numbers.append(int("".join(list_for_string)))
     return calculate(numbers, operations)
 
-evaluate_string("1 +2-(2 - 1) + 5")
+evaluate_string("1 (+2-(2 +2)2 - 1) + 5")
 
 
