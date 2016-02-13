@@ -32,6 +32,8 @@ def my_fasta_reader(fp):
                 stack_for_seq.append(line.strip(">, \n"))
             else:
                 merging_seq_list.append(line.strip())
+        stack_for_seq.append("".join(merging_seq_list))
+        yield tuple(stack_for_seq)
 
 
 def main():
