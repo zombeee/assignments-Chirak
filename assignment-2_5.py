@@ -65,9 +65,6 @@ def evaluate_string(string):
     stack_for_colons = []
     for char in string:
         if char == " ":
-            if list_for_string:
-                numbers.append(int("".join(list_for_string)))
-                list_for_string = []
             continue
         if char == "(" or char == ")":
             if not stack_for_colons or stack_for_colons[-1] == char:
@@ -75,6 +72,8 @@ def evaluate_string(string):
             else:
                 stack_for_colons.pop()
             if list_for_string:
+                if char == "(":
+                    raise ValueError("Unresolved colons composition")
                 numbers.append(int("".join(list_for_string)))
                 list_for_string = []
             continue
@@ -95,6 +94,6 @@ def evaluate_string(string):
         numbers.append(int("".join(list_for_string)))
     return calculate(numbers, operations)
 
-evaluate_string("1 (+2-(2 +2)2 - 1) + 5")
+evaluate_string("1 +2 -2 +2+2 -( 1 + 5)")
 
 
