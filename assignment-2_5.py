@@ -65,6 +65,8 @@ def evaluate_string(string):
     stack_for_colons = []
     for char in string:
         if char == " ":
+            if list_for_string:
+                raise ValueError("Missing operation")
             continue
         if char == "(" or char == ")":
             if not stack_for_colons or stack_for_colons[-1] == char:
@@ -94,6 +96,6 @@ def evaluate_string(string):
         numbers.append(int("".join(list_for_string)))
     return calculate(numbers, operations)
 
-evaluate_string("1 +2 -2 +2+2 -( 1 + 5)")
+evaluate_string("1 +2 -2 +2+2 - 1 + 5 5")
 
 
