@@ -12,24 +12,25 @@ import os
 def my_fasta_reader(fp):
     """
     This function is fasta reader
+    :type fp: str
     :param fp: path to fasta file
     :return: list of pared names and sequences
     """
     with open(fp) as input_file:
-        comment_start_symbol = "#"
-        new_seq_name_symbol = ">"
+        COMMENT_START_SYMBOL = "#"
+        NEW_SEQ_NAME_START_SYMBOL = ">"
         stack_for_seq = []
         merging_seq_list = []
         for line in input_file:
-            if line.startswith(comment_start_symbol):
+            if line.startswith(COMMENT_START_SYMBOL):
                 continue
-            if line.startswith(new_seq_name_symbol):
+            elif line.startswith(NEW_SEQ_NAME_START_SYMBOL):
                 if stack_for_seq:
                     stack_for_seq.append("".join(merging_seq_list))
                     merging_seq_list = []
                     yield tuple(stack_for_seq)
                     stack_for_seq = []
-                stack_for_seq.append(line.strip(">, \n"))
+                stack_for_seq.append(line.strip("> \n"))
             else:
                 merging_seq_list.append(line.strip())
         stack_for_seq.append("".join(merging_seq_list))

@@ -75,7 +75,7 @@ def evaluate_string(string):
                 stack_for_colons.pop()
             if list_for_string:
                 if char == "(":
-                    raise ValueError("Unresolved colons composition")
+                    raise ValueError("Unresolved brackets composition")
                 numbers.append(int("".join(list_for_string)))
                 list_for_string = []
             continue
@@ -91,7 +91,7 @@ def evaluate_string(string):
                 list_for_string = []
             operations.append(char)
     if stack_for_colons:
-        raise ValueError("Additional(missed) colons in given data")
+        raise ValueError("Additional(missed) brackets in given data")
     if list_for_string:
         numbers.append(int("".join(list_for_string)))
     return calculate(numbers, operations)
