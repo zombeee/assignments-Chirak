@@ -7,9 +7,9 @@
 
 
 from __future__ import division, print_function
-from itertools import ifilter, izip, imap
-from operator import mul
-from itertools import starmap
+from itertools import ifilter, izip, imap, starmap
+import operator
+
 
 def hamming(seq1, seq2):
     """
@@ -53,11 +53,9 @@ def matrix_dot_product(matrix1, matrix2):
     if n_row_2 != n_col_1:
         raise ValueError("Numbers of rows in first matrix must be equal"
                          " to numbers of colons in second matrix")
-    mult_matrix_result = []
     for row in matrix1:
-        mult_matrix_result.append([sum(starmap(mul, zip(row, column)))
-                                   for column in tuple(zip(*matrix2))])
-    return mult_matrix_result
+        yield ([sum(starmap(operator.mul, (zip(row, column)))) for column
+               in tuple(zip(*matrix2))])
 
 
 matrix_1 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
