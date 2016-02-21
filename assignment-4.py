@@ -55,7 +55,7 @@ def matrix_dot_product(matrix1, matrix2):
                          " to numbers of colons in second matrix")
     for row in matrix1:
         yield ([sum(starmap(operator.mul, (zip(row, column)))) for column
-               in tuple(zip(*matrix2))])
+               in (zip(*matrix2))])
 
 
 matrix_1 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
