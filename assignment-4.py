@@ -8,6 +8,8 @@
 
 from __future__ import division, print_function
 from itertools import ifilter, izip, imap
+from operator import mul
+from itertools import starmap
 
 def hamming(seq1, seq2):
     """
@@ -18,7 +20,7 @@ def hamming(seq1, seq2):
     :return:
     """
     if len(seq1) != len(seq2):
-        raise ValueError("Different lenght of the sequences")
+        raise ValueError("Different length of the sequences")
     return sum(a != b for a, b in izip(seq1, seq2))
 
 
@@ -31,12 +33,12 @@ def p_dist(seq1, seq2):
     :return:
     """
     if len(seq1) != len(seq2):
-        raise ValueError("Different lenght of the sequences")
-    return ((sum(a != b for a, b in izip(seq1, seq2) if a != "-" or b != "-"))
-/(sum(a for a, b in izip(seq1, seq2) if a != "-" or b != "-")))
+        raise ValueError("Different length of the sequences")
+    return (sum(a != b for a, b in izip(seq1, seq2) if (a != "-" or b != "-"))
+/ sum(a for a, b in izip(seq1, seq2) if (a != "-" or b != "-")))
 
 
-def matrix_dot_prodact(matrix1, matrix2):
+def matrix_dot_product(matrix1, matrix2):
     """
     :type matrix1: list
     :param matrix1:
@@ -49,12 +51,19 @@ def matrix_dot_prodact(matrix1, matrix2):
     n_row_1, n_col_1 = len(matrix1), len(matrix1[0])
     n_row_2, n_col_2 = len(matrix2), len(matrix2[0])
     if n_row_2 != n_col_1:
-        raise ValueError("Errors in given data")
-    mult_matrix_result = [[None for j in xrange(n_col_2)]
-                          for i in xrange(n_row_1)]
-    for i in mult_matrix_result:
-        i.append(sum((j for numbers in lines for i in matrix1)*
-                     (num for row[j] in matrix2)))
+        raise ValueError("Numbers of rows in first matrix must be equal"
+                         " to numbers of colons in second matrix")
+    mult_matrix_result = []
+    for row in matrix1:
+        mult_matrix_result.append([sum(starmap(mul, zip(row, column)))
+                                   for column in tuple(zip(*matrix2))])
+    return mult_matrix_result
+
+
+matrix_1 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+matrix_2 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+
+matrix_dot_product(matrix_1, matrix_2)
 
 
 
