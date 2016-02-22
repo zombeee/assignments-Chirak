@@ -53,9 +53,11 @@ def matrix_dot_product(matrix1, matrix2):
     if n_row_2 != n_col_1:
         raise ValueError("Numbers of rows in first matrix must be equal"
                          " to numbers of colons in second matrix")
+    result_matrix = []
     for row in matrix1:
-        yield ([sum(starmap(operator.mul, (zip(row, column)))) for column
-               in (zip(*matrix2))])
+        result_matrix.append([sum(starmap(operator.mul, zip(row, column)))
+                              for column in zip(*matrix2)])
+    return result_matrix
 
 
 matrix_1 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
