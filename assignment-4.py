@@ -24,7 +24,7 @@ def hamming(seq1, seq2):
     return sum(a != b for a, b in izip(seq1, seq2))
 
 
-def p_dist(seq1, seq2):
+def p_distance(seq1, seq2):
     """
     :type seq1: str
     :param seq1:
@@ -34,38 +34,59 @@ def p_dist(seq1, seq2):
     """
     if len(seq1) != len(seq2):
         raise ValueError("Different length of the sequences")
-    return (sum(a != b for a, b in izip(seq1, seq2) if (a != "-" or b != "-"))
-/ sum(a for a, b in izip(seq1, seq2) if (a != "-" or b != "-")))
+    return (sum(a != b for a, b in izip(seq1, seq2) if (a != "-" and b != "-"))
+/ sum(bool(a) for a, b in izip(seq1, seq2) if (a != "-" and b != "-")))
 
 
-def matrix_dot_product(matrix1, matrix2):
+def matrix_product(a, b):
     """
-    :type matrix1: list
-    :param matrix1:
-    :type matrix2: list
-    :param matrix2:
+    :type a: list
+    :param a:
+    :type b: list
+    :param b:
     :return:
     """
-    if not matrix1 or not matrix2:
+    if not a or not b:
         raise ValueError("Empty matrix given")
-    n_row_1, n_col_1 = len(matrix1), len(matrix1[0])
-    n_row_2, n_col_2 = len(matrix2), len(matrix2[0])
+    n_row_1, n_col_1 = len(a), len(a[0])
+    n_row_2, n_col_2 = len(b), len(b[0])
     if n_row_2 != n_col_1:
         raise ValueError("Numbers of rows in first matrix must be equal"
                          " to numbers of colons in second matrix")
     result_matrix = []
-    for row in matrix1:
+    for row in a:
         result_matrix.append([sum(starmap(operator.mul, zip(row, column)))
-                              for column in zip(*matrix2)])
+                              for column in zip(*b)])
     return result_matrix
 
 
 matrix_1 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 matrix_2 = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 
-matrix_dot_product(matrix_1, matrix_2)
+matrix_product(matrix_1, matrix_2)
 
 
+GAP = "-"
+
+def new_p_dist(seq1, seq2):
+    """
+
+    :param seq1:
+    :param seq2:
+    :return:
+    """
+    if len(seq1) != len(seq2):
+        raise ValueError("Different size of given sequences")
+    if not seq1:
+        raise ValueError("Empty sequence given")
+    def no_gap(a, b):
+        return a != GAP and b != GAP
+    mismatches = sum(a != b for a, b in izip(seq1, seq2) if no_gap(a, b))
+    gapless_length = sum(no_gap(a, b) for a, b in izip(seq1, seq2)
+    return mismatches/gapless_length
 
 
-
+def main():
+    p_distance("aaaggggtttt", "aaaggcctt-t")
+if __name__ == "__main__":
+    pass

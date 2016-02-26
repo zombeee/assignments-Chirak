@@ -2,13 +2,14 @@
 
 
 from __future__ import division, print_function
-from itertools import izip, imap
+from itertools import imap
 
 """
 Homework 5
 """
 
 
+GAP_SYMBOL = "-"
 CHARS_OF_THE_GENE_CODE = ["A", "T", "G", "C"]
 STOP_CODONS = ["TAA", "TAG", "TGA"]
 GENETIC_CODE_DICT = {
@@ -73,47 +74,67 @@ GENETIC_CODE_DICT = {
     "GGC": "G",
     "GGA": "G",
     "GGG": "G",
+    "TAA": None,
+    "TAG": None,
+    "TGA": None
 
 }
 
 
 def reconstruct_protein_alignment(*args):
+    """
+    'Greedy' translate aligned DNA sequence to aligned protein sequence
+    :type args: str
+    :param args: Aligned DNA sequences
+    :return: Tuple of aligned protein sequences
+    :raise ValueError: If given sequences have different length
+    :raise ValueError: If length of the given sequences is not a multiple of
+    three
+    :raise ValueError If unexpected chars in DNA code founded
+    :raise ValueError: If numbers of gaps is not a multiple of three
+    """
     if len(set(imap(len, args))) != 1:
         raise ValueError("Given sequences have different length")
     if len(args[0]) % 3:
         raise ValueError("Length of the given sequences"
-                         " is not a multiple of three ")
-    triplet = []
-    gaps_stack = []
-    protein_seq = []
-    result_protein_sequences = []
-    for sequence in args:
+                         " is not a multiple of three")
+
+    def translator(sequence):
+        triplet = []
+        gaps_stack = []
+        protein_seq = []
         for char in sequence:
             if char in CHARS_OF_THE_GENE_CODE:
                 triplet.append(char)
                 if len(triplet) == 3:
-                    if "".join(triplet) in STOP_CODONS:
-                        protein_seq.append("-" * ((len(sequence)//3) -
+                    if GENETIC_CODE_DICT["".join(triplet)]:
+                        protein_seq.append(GENETIC_CODE_DICT["".join(triplet)])
+                        triplet = []
+                    else:
+                        protein_seq.append(GAP_SYMBOL * ((len(sequence)//3) -
                                            len(protein_seq)))
                         triplet = []
                         break
-                    protein_seq.append(GENETIC_CODE_DICT["".join(triplet)])
-                    triplet = []
-            else:
-                gaps_stack.append("-")
+            elif char == GAP_SYMBOL:
+                gaps_stack.append(char)
                 if len(gaps_stack) == 3:
-                    protein_seq.append("-")
+                    protein_seq.append(GAP_SYMBOL)
                     gaps_stack = []
-        result_protein_sequences.append("".join(protein_seq))
-        protein_seq = []
-    return tuple(result_protein_sequences)
+            else:
+                raise ValueError("Unexpected chars in DNA code")
+        if gaps_stack:
+            raise ValueError("Numbers of gaps is not a multiple of three")
+        return "".join(protein_seq)
+
+    return tuple(translator(sequence) for sequence in args)
 
 
 def main():
-    reconstruct_protein_alignment("AAAGGGTTT", "AA-GGGT--", "TAAGGGTTT", "AAAGGGTTT")
+    reconstruct_protein_alignment("AAAGGGTTT", "AA-GGGT--",
+                                  "TAAGGGTTT", "A-AGGGT--")
 
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     main()
 
 
