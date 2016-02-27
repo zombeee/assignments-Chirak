@@ -10,9 +10,8 @@ Homework 5
 
 
 GAP_SYMBOL = "-"
-CHARS_OF_THE_GENE_CODE = ["A", "T", "G", "C"]
-STOP_CODONS = ["TAA", "TAG", "TGA"]
-GENETIC_CODE_DICT = {
+DNA_ALPHABET = ("A", "T", "G", "C")
+GEN_COD_DICT = {
     "TTT": "F",
     "TTC": "F",
     "TTA": "L",
@@ -104,16 +103,15 @@ def reconstruct_protein_alignment(*args):
         gaps_stack = []
         protein_seq = []
         for char in sequence:
-            if char in CHARS_OF_THE_GENE_CODE:
+            if char in DNA_ALPHABET:
                 triplet.append(char)
                 if len(triplet) == 3:
-                    if GENETIC_CODE_DICT["".join(triplet)]:
-                        protein_seq.append(GENETIC_CODE_DICT["".join(triplet)])
+                    if GEN_COD_DICT["".join(triplet)]:
+                        protein_seq.append(GEN_COD_DICT["".join(triplet)])
                         triplet = []
                     else:
                         protein_seq.append(GAP_SYMBOL * ((len(sequence)//3) -
                                            len(protein_seq)))
-                        triplet = []
                         break
             elif char == GAP_SYMBOL:
                 gaps_stack.append(char)
