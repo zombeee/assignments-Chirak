@@ -17,25 +17,23 @@ def decompose(n):
     summands of the given number
     """
     decomp_result = []
-    num = n
-    while num:
-        if num == 4:
-            decomp_result.append(1)
-            decomp_result.append(3)
-            return sorted(decomp_result)
-        if num == 2:
+    num = n - 1
+    counter = 1
+    if n == 2:
             decomp_result.append(2)
-            return sorted(decomp_result)
-        if num == 1:
+            return decomp_result
+    if n == 1:
             decomp_result.append(1)
-            return sorted(decomp_result)
-        if num % 2:
-            decomp_result.append(num//2+1)
-            num //= 2
+            return decomp_result
+    decomp_result.append(1)
+    while num:
+        counter += 1
+        if num > 2 * (decomp_result[-1] + 1):
+            decomp_result.append(counter)
+            num -= counter
         else:
-            decomp_result.append(num//2)
-            num //= 2
-    return sorted(decomp_result)
+            decomp_result.append(num)
+            return decomp_result
 
 
 def main():
