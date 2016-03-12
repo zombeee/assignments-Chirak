@@ -191,6 +191,7 @@ class MinHeap(object):
         self._percolate_up()
 
 
+
 def test_heap():
     heap = MinHeap()
     nodes = [Node(val, val) for val in xrange(9, -1, -1)]

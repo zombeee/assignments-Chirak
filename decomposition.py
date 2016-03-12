@@ -20,11 +20,11 @@ def decompose(n):
     num = n - 1
     counter = 1
     if n == 2:
-            decomp_result.append(2)
-            return decomp_result
+        decomp_result.append(2)
+        return decomp_result
     if n == 1:
-            decomp_result.append(1)
-            return decomp_result
+        decomp_result.append(1)
+        return decomp_result
     decomp_result.append(1)
     while num:
         counter += 1
@@ -47,3 +47,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+else:
+    decompose(99999999)
