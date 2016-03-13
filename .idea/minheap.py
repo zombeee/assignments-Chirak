@@ -6,24 +6,43 @@ from __future__ import print_function, division
 
 class Node(object):
     """
-    This class creates Node with two parameters: item(eny object)
+    This class creates Node with two attributes: item(eny object)
      and priority(integer number)
-     :type _item: any
+     :type _item: object
      :type _priority: int
     """
     def __init__(self, item, priority):
+        """
+        Initiate node
+        :type item: object
+        :param item: enything can be written to item
+        :type priority: int
+        :param priority: Priority of the node
+        """
         self._item = item
         self._priority = priority
 
     @property
     def item(self):
+        """
+        This function applies to call parameter "item" not throught function
+        :return: Parameter "item"
+        """
         return self._item
 
     @property
     def priority(self):
+        """
+        This function applies to call parameter "priority" not throught function
+        :return: Parameter "priority"
+        """
         return self._priority
 
     def __str__(self):
+        """
+        Applies to represent node as the string
+        :return: str "(item, priority)"
+        """
         return str((self.item, self.priority))
 
     def __ne__(self, other):
@@ -71,10 +90,10 @@ class Node(object):
 
 class MinHeap(object):
     """
-    This class creates binary MinHeap object realized on list. Parent of node
+    This class creates binary MinHeap object implemented on list. Parent of node
     have idx = (idx of node) // 2.
     Children of node have idxs = (idx of node) * 2 and ((idx of node) * 2) + 1.
-    Priority of child node can't be more then priority of the parent node.
+    Priority of child node must be more then priority of the parent node.
     Parent node can have only two children
     :type _heap: list
     """
@@ -189,7 +208,6 @@ class MinHeap(object):
             raise ValueError("`item` should be a `Node` instance")
         self._heap.append(item)
         self._percolate_up()
-
 
 
 def test_heap():
