@@ -36,15 +36,15 @@ def merge_recursive(sequence):
     second_part = sequence[:len(sequence) // 2]
 
     def merge_(a, b):
-        if len(a) == 1 and len(b) == 1:
+        if len(a) <= 1 and len(b) <= 1:
             return merge(a, b)
-        return merge(merge_(a[:len(a) // 2], a[len(b) // 2:]),
-                               merge_(b[:len(b) // 2], b[len(b) // 2:]))
+        return merge(merge_(a[:len(a) // 2], a[len(a) // 2:]),
+                     merge_(b[:len(b) // 2], b[len(b) // 2:]))
 
     return merge_(first_part, second_part)
 
 
-def mergesort_iterative(sequence):
+def merge_sort_iterative(sequence):
     split = collections.deque([item] for item in sequence)
     while len(split) not in (1, 0):
         split.append(merge(split.popleft(), split.popleft()))
@@ -52,13 +52,13 @@ def mergesort_iterative(sequence):
 
 
 def test_merge_recursive():
-    unsorted_list = [random.randint(1, 1000) for _ in xrange(1, 5)]
+    unsorted_list = [random.randint(1, 1000) for _ in xrange(1, 51)]
     return merge_recursive(unsorted_list) == sorted(unsorted_list)
 
 
 def main():
     if not test_merge_recursive():
-        raise RuntimeError
+        raise RuntimeError("all_bad")
 
 
 if __name__ == '__main__':
