@@ -214,6 +214,12 @@ class SearchTree(object):
         return current_node.number
 
     def pop(self, number, default=None):
+        """
+        :type number: int
+        :param number:
+        :param default:
+        :return:
+        """
         search_node = Node(number)
         current_node = self._tree[0]
         while current_node.r_child or current_node.l_child:
