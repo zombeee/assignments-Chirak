@@ -18,7 +18,7 @@ class Node(object):
         """
         Initiate node
         :type number: int
-        :param number:  each Node hold one number
+        :param number: each Node hold one number
         :type parent: Node
         :param parent: Parent Node
         :type l_child: Node
@@ -130,14 +130,31 @@ class SearchTree(object):
         """
         random_head_idx = random.randint(0, len(sequence))
         self._tree = [Node(sequence[random_head_idx])]
-        for idx in xrange(len(sequence)):
+        for idx in xrange(len(sequence)-1):
             if idx != random_head_idx:
                 self.push(sequence[idx])
             else:
                 continue
 
     def __contains__(self, item):
-        pass
+        """
+        :type item:int
+        :param item:
+        :return: True or False
+        """
+        search_node = Node(item)
+        current_node = self._tree[0]
+        while current_node.r_child or current_node.l_child:
+            if search_node == current_node:
+                return True
+            if search_node > current_node and current_node.r_child:
+                current_node = current_node.r_child
+                continue
+            if search_node < current_node and current_node.l_child:
+                current_node = current_node.l_child
+                continue
+            else:
+                return False
 
     def push(self, number):
         """
@@ -179,16 +196,53 @@ class SearchTree(object):
         :type node_2: Node
         :param node_2:
         """
-        node_1._parent, node_2._parent = node_2._parent, node_1._parent
-        node_1._l_child, node_2._l_child = node_2._l_child, node_1._l_child
-        node_1._r_child, node_2._r_child = node_2._r_child, node_1._r_child
+        node_1._number, node_2._number = node_2.number, node_1.number
+
+    def _percolate_down(self, node):
+        """
+        :type node: Node
+        :param node:
+        :return:
+        """
+        current_node = node
+        while current_node.r_child:
+            self.exchange(current_node, current_node.r_child)
+            current_node = current_node.r_child
+        if current_node.l_child:
+            current_node.l_child._parent = current_node.parent
+            current_node.parent._r_child = current_node.l_child
+        return current_node.number
+
+    def pop(self, number, default=None):
+        search_node = Node(number)
+        current_node = self._tree[0]
+        while current_node.r_child or current_node.l_child:
+            if search_node == current_node:
+                return self._percolate_down(current_node)
+            if search_node > current_node and current_node.r_child:
+                current_node = current_node.r_child
+                continue
+            if search_node < current_node and current_node.l_child:
+                current_node = current_node.l_child
+                continue
+        if search_node == current_node:
+            return self._percolate_down(current_node)
+        else:
+            return default
 
 
+def test_tree():
+    x = SearchTree([2, 5, 78, 56, 70, 3])
+    x.pop(56)
+    return 56 not in x
 
-    def pop(self, number, default = None):
-        pass
 
+def main():
+    if not test_tree():
+        raise RuntimeError
 
+if __name__ == "__main__":
+    main()
 
 
 
