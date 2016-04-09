@@ -3,6 +3,7 @@
 
 from __future__ import print_function, division
 
+
 def longest_nonincreasing_subseq_len_sqr(sequence):
     """
     This script search longest non increasing sub sequence in sequence
@@ -12,22 +13,27 @@ def longest_nonincreasing_subseq_len_sqr(sequence):
     :rtype list
     """
     best_subtask = [1] * len(sequence)
-    solution_reversed = [None]  # None needed for correct comparison of empty
-    # list with number
+    solution_reversed = []
     solution = []  # Necessary because first solution applied in reverse order
     for i in xrange(1, len(sequence)):
         for j in xrange(0, i):
             if sequence[i] <= sequence[j]:
                 best_subtask[i] = max(best_subtask[j]+1, best_subtask[i])
     last_member = max(best_subtask)
-    for number in reversed(sequence):
-        if best_subtask[-1] == last_member:
-            if number >= solution_reversed[-1]:
-                solution_reversed.append(number)
+
+    for numbers in reversed(zip(sequence, best_subtask)):  # numbers
+        # is tuple where first element is element of input sequence
+        # and the second element is length of best subtask for this element
+        if numbers[1] == last_member:
+            if not solution_reversed:
+                solution_reversed.append(numbers[0])
+            if numbers[0] >= solution_reversed[-1]:
+                solution_reversed.append(numbers[0])
                 last_member -= 1
-        best_subtask.pop()
+                if last_member == 0:  # we find best subseq
+                    break  # and we need to stop iteration
     solution.extend(reversed(solution_reversed))  # reversing of solution
-    return solution.pop() or solution  # Necessary to pop None out of solution
+    return solution
 
 
 def test_sqr_subseq():
